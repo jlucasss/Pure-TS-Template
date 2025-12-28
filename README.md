@@ -21,7 +21,7 @@ Ensure you have Node.js and npm installed on your machine.
 ### Installation
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/jlss14-ifal/Pure-TS-Template.git
+   git clone https://github.com/jlucasss/Pure-TS-Template.git
 2. Install the dependencies:
 ```bash
 npm install
@@ -32,6 +32,70 @@ Start the server:
 ```bash
 npm start
 ```
+
+## ▶️ Basic Usage (via `manager-container.bash`)
+
+- **Image Build**:
+
+``bash
+./manager-container.bash -m dev -e podman build
+
+``
+
+The **-m** stands for mode, which can be dev or prod. The **-e** stands for engine, which can be docker or podman.
+
+- **Start containers in the background**:
+
+``bash
+./manager-container.bash up
+
+``
+
+- **Stop containers**:
+
+``bash
+./manager-container.bash down
+
+``
+
+- **View logs**:
+
+``bash
+./manager-container.bash logs
+
+``
+
+- **Access the terminal inside the container**:
+
+``bash
+./manager-container.bash exec
+
+``
+
+- **Restart containers**:
+
+``bash
+./manager-container.bash restart
+
+``
+
+- **Clean up orphaned images**:
+
+``bash
+./manager-container.bash clean
+
+``
+
+- **Deploy local Podman via Quadlet**
+
+``bash
+./manager-container.bash local-deploy
+
+```
+
+> ⚠️ Note: There's no need to run `npm install` manually — this is already done within the Dockerfile during the image build.
+
+---
 
 ## Available Scripts
 

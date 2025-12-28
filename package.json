@@ -12,8 +12,8 @@
     "build": "npm run build:src && npm run build:test && npm run build:rename && npm run build:fix-imports",
     "start": "node dist/src/index.mjs",
     "start:prod": "node dist/index.mjs",
-    "dev": "ts-node src/index.ts",
-    "startdev": "tsc && node dist/src/index.mjs",
+    "dev": "nodemon --watch src --ext ts --exec ts-node src/index.ts",
+    "start:dev": "tsc && node dist/src/index.mjs",
     "test:ts": "jest",
     "test:js": "mocha dist/test/**/*.mjs",
     "test": "npm run test:ts && npm run build && npm run test:js",
@@ -32,6 +32,7 @@
     "@types/node": "^22.9.0",
     "jest": "^29.7.0",
     "mocha": "^10.8.2",
+    "nodemon": "^3.1.11",
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.3"

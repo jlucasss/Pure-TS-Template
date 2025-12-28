@@ -8,26 +8,26 @@ import path from 'path'; // For path manipulations
 // To convert URLs to file paths
 
 // Get the root directory of the project
-var rootDir = process.cwd();
+const rootDir = process.cwd();
 
 // Function to replace text within a file
-var replaceInFile = function replaceInFile(filePath, searchValue, replaceValue) {
+const replaceInFile = (filePath, searchValue, replaceValue) => {
   // Read the file content
-  var data = fs.readFileSync(filePath, 'utf8');
+  const data = fs.readFileSync(filePath, 'utf8');
   // Replace the occurrences of searchValue with replaceValue
-  var result = data.replace(new RegExp(searchValue, 'g'), replaceValue);
+  const result = data.replace(new RegExp(searchValue, 'g'), replaceValue);
   // Write the updated content back to the file
   fs.writeFileSync(filePath, result, 'utf8');
 };
 
 // Function to process directories recursively
-var _processDirectory = function processDirectory(dir) {
+const processDirectory = dir => {
   // Read all files and subdirectories in the specified directory
-  fs.readdirSync(dir).forEach(function (file) {
-    var fullPath = path.join(dir, file);
+  fs.readdirSync(dir).forEach(file => {
+    const fullPath = path.join(dir, file);
     // If it's a directory, process it recursively
     if (fs.lstatSync(fullPath).isDirectory()) {
-      _processDirectory(fullPath);
+      processDirectory(fullPath);
     } else if (file.endsWith('.mjs')) {
       // Replaces imports without extension to add '.mjs' only if it is a relative path ('./' or '../')
       replaceInFile(fullPath, /(import .* from ['"])(\..*?)(['"])/g, '$1$2.mjs$3');
@@ -37,5 +37,5 @@ var _processDirectory = function processDirectory(dir) {
 };
 
 // Start processing from the 'dist' directory
-_processDirectory(path.join(rootDir, 'dist'));
+processDirectory(path.join(rootDir, 'dist'));
 

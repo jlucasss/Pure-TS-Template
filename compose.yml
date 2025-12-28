@@ -1,20 +1,24 @@
 # Define the services managed by Docker Compose
 services:
   # Name of the service (commonly the main application service)
-  api:
+  pwa:
     # Build the Docker image using the Dockerfile in the current directory
-    build: .
+    build:
+      context: .
+      dockerfile: Containerfile
+      target: ${APP_TARGET:-development}
+    image: ${PROJECT_NAME:-pure}:${APP_MODE:-dev}
     # Map the port on the host to the port on the container
     ports:
     # The ${PORT} variable is read from the environment, allowing the container to listen on the specified host port
       - "${PORT}:${PORT}"
     # Specify the networks the service is connected to
     networks:
-      - app_network
+      - pure_net
 
 # Define the custom networks used by the services
 networks:
   # Name of the network used by the services
-  app_network:
+  pure_net:
       # Specify the network driver as 'bridge', creating a private internal network on the host
       driver: bridge

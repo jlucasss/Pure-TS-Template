@@ -1,4 +1,5 @@
-import  express, { Express, Request, Response } from 'express'
+import  express from 'express'
+import type { Express, Request, Response } from 'express'
 import 'dotenv/config'
 
 const hostname: string|undefined = process.env.HOSTNAME;

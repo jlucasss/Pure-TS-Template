@@ -1,0 +1,78 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.generate_tag.outputs.sha }}
+    services:
+      db:
+        image: rethinkdb:2.4.4-bookworm-slim
+        ports:
+          - 28015:28015
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: 'npm'
+
+      - run: npm install
+      - run: npm test
+        env:
+          RETHINKDB_HOST: localhost
+          RETHINKDB_PORT: 28015
+
+      - name: Generate Tag
+        id: generate_tag
+        run: echo "sha=$(echo $GITHUB_SHA | head -c7)" >> $GITHUB_OUTPUT
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and Push
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/myapp:${{ steps.generate_tag.outputs.sha }}
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Copy Files
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "compose.yml"
+          target: "~/"
+
+      - name: Remote Deployment
+        uses: appleboy/ssh-action@v1.2.1
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            set +x
+            echo "DOCKER_IMAGE_TAG=${{ needs.build.outputs.tag }}" > .env
+            docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
+            docker compose pull
+            docker compose up -d
+            set +x

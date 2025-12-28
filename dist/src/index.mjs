@@ -1,26 +1,26 @@
 import express from 'express';
 import 'dotenv/config';
-var hostname = process.env.HOSTNAME;
-var port = process.env.PORT;
+const hostname = process.env.HOSTNAME;
+const port = process.env.PORT;
 function validateEnvVariable(variable, variableName) {
   if (variable === undefined) {
-    console.error("".concat(variableName, " is undefined."));
+    console.error(`${variableName} is undefined.`);
     process.exit(1);
     // Sair do processo com código de erro 1 
   }
   return variable;
 }
-var validatedHostname = validateEnvVariable(hostname, "HOSTNAME");
-var validatedPort = validateEnvVariable(port, "PORT");
+const validatedHostname = validateEnvVariable(hostname, "HOSTNAME");
+const validatedPort = validateEnvVariable(port, "PORT");
 if (isNaN(Number(validatedPort))) {
-  console.error("PORT is not a valid number: \"".concat(validatedPort, "\""));
+  console.error(`PORT is not a valid number: "${validatedPort}"`);
   process.exit(1);
   // Sair do processo com código de erro 1
 }
-var app = express();
-app.get("/", function (req, res) {
+const app = express();
+app.get("/", (req, res) => {
   res.send("Hello World!");
 });
-app.listen(Number(validatedPort), validatedHostname, function () {
-  console.log("Server running at http://".concat(hostname, ":").concat(port, "/"));
+app.listen(Number(validatedPort), validatedHostname, () => {
+  console.log(`Server running at http://${hostname}:${port}/`);
 });

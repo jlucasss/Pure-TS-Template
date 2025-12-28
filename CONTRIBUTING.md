@@ -5,10 +5,10 @@ Thank you for your interest in contributing to Pure-TS-Template! We welcome all 
 ## How to Contribute
 
 ### Reporting Bugs
-If you find a bug, please open an issue [here](https://github.com/jlss14-ifal/Pure-TS-Template/issues) with as much detail as possible. Include steps to reproduce the issue, your environment details, and any relevant logs or screenshots.
+If you find a bug, please open an issue [here](https://github.com/jlucasss/Pure-TS-Template/issues) with as much detail as possible. Include steps to reproduce the issue, your environment details, and any relevant logs or screenshots.
 
 ### Suggesting Features
-We appreciate your ideas! If you have a feature request, please open an issue [here](https://github.com/jlss14-ifal/Pure-TS-Template/issues) with a detailed explanation of the feature, how it would benefit users, and any possible implementation ideas.
+We appreciate your ideas! If you have a feature request, please open an issue [here](https://github.com/jlucasss/Pure-TS-Template/issues) with a detailed explanation of the feature, how it would benefit users, and any possible implementation ideas.
 
 ### Improving Documentation
 Improvements to documentation are always welcome! Feel free to submit pull requests for any enhancements, typo fixes, or additional information that can help other developers.
@@ -39,7 +39,7 @@ This project adheres to a [Code of Conduct](CODE_OF_CONDUCT.md). By participatin
 ### Setting Up the Project
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/jlss14-ifal/Pure-TS-Template.git
+   git clone https://github.com/jlucasss/Pure-TS-Template.git
    ```
 
 2. **Navigate to the project directory**:

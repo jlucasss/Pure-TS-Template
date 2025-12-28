@@ -25,3 +25,37 @@ npm-debug.log*
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+
+# Specifies intentionally untracked files to ignore when using Git
+# http://git-scm.com/docs/gitignore
+
+*~
+*.sw[mnpcod]
+.tmp
+*.tmp
+*.tmp.*
+*.sublime-project
+*.sublime-workspace
+.DS_Store
+Thumbs.db
+UserInterfaceState.xcuserstate
+$RECYCLE.BIN/
+
+*.log
+log.txt
+npm-debug.log*
+
+/.idea
+/.ionic
+/.sass-cache
+/.sourcemaps
+/.versions
+/.vscode/*
+!/.vscode/extensions.json
+/coverage
+/dist
+/node_modules
+/platforms
+/plugins
+/www
